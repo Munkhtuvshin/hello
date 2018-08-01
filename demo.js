@@ -45,19 +45,36 @@ app.get('/listUsers', function (req, res) {
 })
 
 app.post('/event', function (req, res) {
+  console.log('+++++++++++++++++++Nemeh+++++++++++++++');
   data.push(req.body);
+  console.log((data.length-1)+' -> index deer nemegdsen data-iin id: ');
   console.log(req.body.id);
+  console.log((data.length-1)+' -> index deer nemegdsen data: ');
+  console.log(data[data.length-1]);
   res.send(req.body);
 })
 
 app.delete('/event/:id', function (req, res) {
-  data = data.splice(req.params.id, 1);
+  console.log('-------------------Ustgah----------------------');
+  console.log('req.params.id: '+req.params.id);
+  var index;
+  for (var i = data.length - 1; i >= 0; i--) {
+    if( data[i].id ==req.params.id ){
+      console.log('data[i].id: '+data[i].id);
+      index=i;
+      console.log('index:'+index);
+    }
+  }
+  console.log('ustsan data');
+  console.log(data[index]);
+  data.splice(index, 1);
+  console.log('data: ');
   console.log(data);
-  console.log(req.params.id);
   res.send(req.body);
 })
 
 app.get('/event', function (req, res) {
+  console.log(data);
   res.send(data);
 })
 
