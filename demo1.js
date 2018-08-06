@@ -11,7 +11,9 @@ var multer  = require('multer')
   app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
   })); 
+
   app.use(express.static('public'))
+  
   app.use(function (req, res, next){
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -21,15 +23,16 @@ var multer  = require('multer')
   })
 
   var storage = multer.diskStorage({
-    destination: './public/uploa',
+    destination: './public/upload',
     filename: function (req, file, cb) {
+      var filename=file.fieldname + '-' + file.originalname;
       cb(null, file.fieldname + '-' + file.originalname)
     }
   })
 
   const upload = multer({
     storage:storage
-  }).single('cover');
+  }).single('cover_url');
 
   app.get('/event', function (req, res) {
     Event
@@ -41,21 +44,12 @@ var multer  = require('multer')
   })
 
   app.post('/upload',upload, function (req, res) {
+    Event.create( {title: req.body.title, start_at: req.body.start_at, end_at: req.body.end_at, coordinate:{ lat: req.body.lat, lng: req.body.lng }, cover_url: './public/upload/'+filename }, (err, event) => {
+      return event;
+    })
     return res.json(req.body);
   })
 
-  app.post('/event', function (req, res) {
-    //console.log('nemeh')
-    console.log(req.body);
-    
-
-    //var upload = multer({ storage: storage })
-    Event.create(req.body, (err, event) => {
-      console.log(err);
-      return res.json(event);
-    })
-    //  return true;
-  })
 
   app.delete('/event/:id', function (req, res) {
     Event
