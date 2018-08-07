@@ -21,12 +21,13 @@ var multer  = require('multer')
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
   })
-
+  var ame='';
   var storage = multer.diskStorage({
-    destination: './public/upload',
+    destination: '../redux/public',
     filename: function (req, file, cb) {
-      var filename=file.fieldname + '-' + file.originalname;
-      cb(null, file.fieldname + '-' + file.originalname)
+      var filename=file.fieldname + '-' + file.originalname+Date.now();
+      cb(null, file.fieldname +'-'+Date.now()+'-'+file.originalname)
+      ame =file.fieldname +'-'+Date.now()+'-'+file.originalname;
     }
   })
 
@@ -43,8 +44,8 @@ var multer  = require('multer')
     });
   })
 
-  app.post('/upload',upload, function (req, res) {
-    Event.create( {title: req.body.title, start_at: req.body.start_at, end_at: req.body.end_at, coordinate:{ lat: req.body.lat, lng: req.body.lng }, cover_url: './public/upload/'+filename }, (err, event) => {
+  app.post('/event',upload, function (req, res) {
+    Event.create( {title: req.body.title, start_at: req.body.start_at, end_at: req.body.end_at, coordinate:{ lat: req.body.lat, lng: req.body.lng }, cover_url: ame }, (err, event) => {
       return event;
     })
     return res.json(req.body);
@@ -60,9 +61,10 @@ var multer  = require('multer')
     });
   })
 
-  app.put('/event/:id', function (req, res) {
+  app.put('/event/:id',upload, function (req, res) {
     Event.
-    findOneAndUpdate( { _id:req.params.id }, { $set: req.body }, 
+    findOneAndUpdate( { _id:req.params.id }, { $set: {title: req.body.title, start_at: req.body.start_at, end_at: req.body.end_at, coordinate:{ lat: req.body.lat, lng: req.body.lng },
+                       cover_url: ame } }, 
       function(err, event){
         return res.json(event);
       }
