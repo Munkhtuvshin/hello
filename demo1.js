@@ -51,7 +51,6 @@ var multer  = require('multer')
     return res.json(req.body);
   })
 
-
   app.delete('/event/:id', function (req, res) {
     Event
     .findOne({ _id:req.params.id })
@@ -63,7 +62,7 @@ var multer  = require('multer')
 
   app.put('/event/:id',upload, function (req, res) {
     Event.
-    findOneAndUpdate( { _id:req.params.id }, { $set: {title: req.body.title, start_at: req.body.start_at, end_at: req.body.end_at, coordinate:{ lat: req.body.lat, lng: req.body.lng },
+    findOneAndUpdate( { _id:req.params.id }, { $set: {title: req.body.title, start_at: req.body.start_at, end_at: req.body.end_at, coordinate:{ lat: req.body.coordinate.lat, lng: req.body.coordinate.lng },
                        cover_url: ame } }, 
       function(err, event){
         return res.json(event);
