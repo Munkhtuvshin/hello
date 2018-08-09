@@ -1,28 +1,22 @@
-var express = require('express');
-var app = express();
-var fs = require("fs");
+var api_key = 'dd2cf2a7293deee99d091893e36b1a2c-7efe8d73-25123d99';
+var domain = 'sandbox7786c7476a844ced8a11317268d73894.mailgun.org';
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+ 
+var data = {
+  from: 'Bat <B150920009@mymust.net>',
+  to: 'monhood34@gmail.com',
+  subject: 'Hello world',
+  text: 'Testing ghj ss!'
+};
+ 
+mailgun.messages().send(data, function (error, body) {
+  if(error){ console.log(error); }
+  console.log(body);
+});
 
-
-app.use(function (req, res, next){
- res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
- res.setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, OPTIONS, PUT, PATCH, DELETE');
- res.setHeader('Access-Control-Allow-Headers', 'Access-Control-*, Origin, X-Requested-With, Content-Type, Accept, Authorization');
- res.setHeader('Access-Control-Allow-Credentials', true);
- next()
-})
-
-app.get('/listUsers', function (req, res) {
-   fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-       console.log( data );
-       res.end( data );
-   });
-})
-
-var server = app.listen(8081, function () {
-
-  var host = server.address().address
-  var port = server.address().port
-
-  console.log("Example app listening at http://%s:%s", host, port)
-
-})
+// curl -s --user 'api:dd2cf2a7293deee99d091893e36b1a2c-7efe8d73-25123d99' \
+//     https://api.mailgun.net/v3/sandbox7786c7476a844ced8a11317268d73894.mailgun.org/messages \
+//     -F from='Excited User <monho@s4.mailgun.org>' \
+//     -F to=monhood34@gmail.com \
+//     -F subject='Helo' \
+//     -F text='Testing some Mailgun awesomeness!'
