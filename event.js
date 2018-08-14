@@ -7,6 +7,8 @@ var eventSchema = new mongoose.Schema({
   cover_url:String,
   start_at:String,
   end_at:String,
+  beeco_start_at:String,
+  beeco_end_at:String,
   coordinate: {
     lat: { type: String},
     lng:{type:String}
