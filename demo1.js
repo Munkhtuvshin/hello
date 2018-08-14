@@ -2,11 +2,12 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var bodyParser = require('body-parser')
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
 var Event = require("./event.js");
 var db_connect = require("./connect_db.js");
 var multer  = require('multer')
 //var upload = multer({ dest: 'upload/'})
+  
+  app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
   app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
@@ -25,7 +26,6 @@ var multer  = require('multer')
   var storage = multer.diskStorage({
     destination: '../redux/public',
     filename: function (req, file, cb) {
-      var filename=file.fieldname + '-' + file.originalname+Date.now();
       cb(null, file.fieldname +'-'+Date.now()+'-'+file.originalname)
       ame =file.fieldname +'-'+Date.now()+'-'+file.originalname;
     }
@@ -67,12 +67,7 @@ var multer  = require('multer')
     Event.
     findOneAndUpdate( { _id:req.params.id }, { $set: {title: req.body.title, start_at: req.body.start_at, 
       end_at: req.body.end_at, coordinate:{ lat: req.body.lat, lng: req.body.lng },
-      cover_url: ame, beeco_end_at:req.body.beeco_end_at, beeco_start_at:req.body.beeco_start_at } }, 
-      function(err, event){
-        return res.json(event);
-      }
-    )
-  })
+      cover_url: ame, beeco_end_at:req.body.beeco_end_at, beeco_start_at:req.body.beeco_start_at } })
 
   var server = app.listen(8081, function () {
 
