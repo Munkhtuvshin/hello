@@ -45,8 +45,9 @@ var multer  = require('multer')
   })
 
   app.post('/event',upload, function (req, res) {
+    console.log(req.body)
     Event.create( {title: req.body.title, start_at: req.body.start_at, end_at: req.body.end_at, 
-      coordinate:{ lat: req.body.lat, lng: req.body.lng }, cover_url: req.file.filename, beeco_start_at:req.body.beeco_start_at,
+      coordinate:{ lat: req.body.lat, lng: req.body.lng, addressName:req.body.addressName }, cover_url: req.file.filename, beeco_start_at:req.body.beeco_start_at,
       beeco_end_at: req.body.beeco_end_at }, (err, event) => {
       return event;
     })
@@ -62,11 +63,13 @@ var multer  = require('multer')
   })
 
   app.put('/event/:id',upload, function (req, res) {
-    console.log(req.body)
     Event.
     findOneAndUpdate( { _id:req.params.id }, { $set: {title: req.body.title, start_at: req.body.start_at, 
       end_at: req.body.end_at, coordinate:{ lat: req.body.lat, lng: req.body.lng },
-      cover_url: ame, beeco_end_at:req.body.beeco_end_at, beeco_start_at:req.body.beeco_start_at } })
+      cover_url: ame, beeco_end_at:req.body.beeco_end_at, beeco_start_at:req.body.beeco_start_at } }, 
+      (err, event) => {
+        return res.json(event)
+    })
   })
 
   var server = app.listen(8081, function () {

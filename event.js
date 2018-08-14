@@ -11,6 +11,7 @@ var eventSchema = new mongoose.Schema({
   beeco_end_at:String,
   coordinate: {
     lat: { type: String},
+    addressName:String,
     lng:{type:String}
   }
 
