@@ -50,7 +50,6 @@ var multer  = require('multer')
       beeco_end_at: req.body.beeco_end_at }, (err, event) => {
       return event;
     })
-    //return res.json(req.body);
   })
 
   app.delete('/event/:id', function (req, res) {
@@ -68,12 +67,11 @@ var multer  = require('multer')
     findOneAndUpdate( { _id:req.params.id }, { $set: {title: req.body.title, start_at: req.body.start_at, 
       end_at: req.body.end_at, coordinate:{ lat: req.body.lat, lng: req.body.lng },
       cover_url: ame, beeco_end_at:req.body.beeco_end_at, beeco_start_at:req.body.beeco_start_at } })
+  })
 
   var server = app.listen(8081, function () {
-
     var host = server.address().address
     var port = server.address().port
-
     console.log("Example app listening at http://%s:%s", host, port)
 
   })
