@@ -32,7 +32,7 @@ var data = {
 
 const mongoConnectionString = 'mongodb://127.0.0.1/agenda';
  
-const agenda = new Agenda({db:mongoConnectionString});
+const agenda = new Agenda();
 
 agenda.define('deleteusers', (job, done) => {
 
