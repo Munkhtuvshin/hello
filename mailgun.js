@@ -3,8 +3,8 @@ var domain = 'sandbox7786c7476a844ced8a11317268d73894.mailgun.org';
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
  
 var data = {
-  from: 'Bat <B150920009@mymust.net>',
-  to: 'monhood34@gmail.com',
+  from: 'Bat <monho@gmail.com>',
+  to: 'B150920009@mymust.net',
   subject: 'Hello world',
   text: 'Testing ghj ss!'
 };
