@@ -12,7 +12,7 @@ agenda.define('delete old users', function(job, done){
 (async function() { // IIFE to give access to async/await
   await agenda.start();                 
 
-  await agenda.every('3 seconds', 'delete old users');
+  await agenda.schedule(new Date(Date.now() + 4000), 'delete old users');
   console.log('hooe');
 
   // Alternatively, you could also do:

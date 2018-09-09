@@ -56,3 +56,5 @@ var server = app.listen(9000, function () {
 	hh();	
 	console.log("Example app listening at http://%s:%s", host, port)
 })
+
+mongo --username dev --password devs.beeco.0 --host ds129146.mlab.com --port 29146 --authenticationDatabase beeco

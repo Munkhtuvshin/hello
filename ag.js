@@ -30,3 +30,28 @@ var server = app.listen(9990, function () {
   var port = server.address().port;
   console.log("Example app listening at http://%s:%s", host, port)
 })
+
+DB_HOST=ds129146.mlab.com:29146/beeco
+DB_USER=dev
+DB_PASS=devs.beeco.0
+FB_HOST=https://beeco-156f5.firebaseio.com/
+
+db.beeco_poi.find(
+   { coordinates : { $near : [ 47.920659, 106.917636 ], $maxDistance: 0.10 } }
+)
+
+
+
+db.beeco_poi.findOne(
+   {
+     coordinates:
+       { $near:
+          {
+            $geometry: { type: "Point",  coordinates: [ 106.917636, 47.920659 ] },
+            $minDistance: 0,
+            $maxDistance: 1000
+          }
+       }
+   }
+)
+
