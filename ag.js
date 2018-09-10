@@ -44,7 +44,7 @@ db.beeco_poi.find(
 
 db.beeco_poi.findOne(
    {
-     coordinates:
+     coordinate:
        { $near:
           {
             $geometry: { type: "Point",  coordinates: [ 106.917636, 47.920659 ] },
